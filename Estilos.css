@@ -1,0 +1,49 @@
+.uk-slideshow-items{
+	height:350px !important;
+	width:1300px !important;
+}
+
+.banner{
+       height:120px;
+       width: 125px;
+}
+
+#banner{
+	background-color:black;
+}
+
+#logo{
+	background-color:black
+}
+
+#bann{
+	height:160px;
+	width:180px;
+}
+
+.uk-overlay-primary{
+	height:650px;
+	width:700px;
+}
+
+.tarjeta{
+	height:200px;
+	width:200px;
+}
+
+.social{
+	height:48px;
+	width:53px;
+}
+#ag{
+	background-color:black
+}
+
+
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}

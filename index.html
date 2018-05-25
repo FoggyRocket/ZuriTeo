@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ 
+ <link id="Ulkit" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/css/uikit.min.css" />
+ <link id="CSS" rel="stylesheet" href="./Estilos.css">
+<title>DROP DEAD</title>
+</head>
+<body>
+
+
+<div id="banner">    <!-- BANNER --> 
+<div><p><a href="Registro_Cliente.html" class="uk-position-top-center uk-icon-link" uk-icon="user"></a><br></p></div>
+<form class="uk-position-top-right uk-search uk-search-default">
+    <span uk-search-icon></span>
+    <input class="uk-search-input" type="search" placeholder="Buscar...">
+	
+</form>
+<center>
+<p><img class="banner" src="./img/logo.png" alt="DROP DEAD"></p>
+</center>
+</div>
+
+<br>
+
+<div> <!-- BOTONES --> 
+<div class="uk-inline">
+    <a class="uk-button uk-button-default" href="index.html">INICIO</a>
+</div>
+
+<button class="uk-button uk-button-default" type="button">DAMA</button>
+<div uk-dropdown>
+    <ul class="uk-nav uk-dropdown-nav">
+        <li class="uk-active"><a href="Muestras.html">Ver todo</a></li>
+		<li class="uk-nav-divider"></li>
+        <li class="uk-nav-header">HOODIES</li>
+        <li><a href="#">Más vendidos</a></li>
+        <li><a href="#">Todos</a></li>
+        <li class="uk-nav-divider"></li>
+		<li class="uk-nav-header">JEANS</li>
+        <li><a href="#">Skinny</a></li>
+		<li><a href="#">Regular Fit</a></li>
+		<li><a href="#">Low Fit</a></li>
+		<li><a href="#">Cholo style</a></li>
+		<li class="uk-nav-divider"></li>
+		<li class="uk-nav-header">BLUSAS</li>
+        <li><a href="#">Cuello V</a></li>
+		<li><a href="#">Cuello U</a></li>
+		<li><a href="#">Marginal Mood</a></li>
+    </ul>
+</div>
+
+<button class="uk-button uk-button-default" type="button">CABALLERO</button>
+<div uk-dropdown>
+    <ul class="uk-nav uk-dropdown-nav">
+        <li class="uk-active"><a href="#">Ver todo</a></li>
+		<li class="uk-nav-divider"></li>
+        <li class="uk-nav-header">HOODIES</li>
+        <li><a href="#">Más vendidos</a></li>
+        <li><a href="#">Todos</a></li>
+        <li class="uk-nav-divider"></li>
+		<li class="uk-nav-header">SLACKS</li>
+        <li><a href="#">Skinny</a></li>
+		<li><a href="#">Regular Fit</a></li>
+		<li><a href="#">Low Fit</a></li>
+		<li><a href="#">Cholo style</a></li>
+		<li class="uk-nav-divider"></li>
+		<li class="uk-nav-header">PLAYERAS</li>
+        <li><a href="#">Cuello V</a></li>
+		<li><a href="#">Cuello U</a></li>
+		<li><a href="#">Marginal Mood</a></li>
+    </ul>
+</div>
+<div class="uk-position-medium uk-position-right">
+<br><br><br><br><br><br><br> <!-- REDES SOCIALES -->
+<a href="https://www.facebook.com/DROPDEADOFFICIAL/"><img class="social" src="./img/fb.png" alt="FACEBOOK"></a> &nbsp;
+<a href="https://www.instagram.com/explore/tags/dropdead/"><img class="social" src="./img/insta.png" alt="INSTAGRAM"></a> &nbsp;
+<a href="https://www.reddit.com/search?q=drop+dead"><img class="social" src="./img/reddit.png" alt="REDDIT"></a> &nbsp;
+<a href="https://twitter.com/search?q=drop%20dead%20gorgeous&src=tyah"><img class="social" src="./img/tw.png" alt="TWITTER"></a> &nbsp
+<a href="https://web.whatsapp.com/"><img class="social" src="./img/wap.png" alt="WHASTAPP"></a>
+</div>
+</div> 
+<br><br>
+<center>    <!-- CARRUSEL -->
+<div class="uk-position-relative uk-light" uk-slideshow>
+
+    <ul class="uk-slideshow-items">
+        <li>
+            <img class="carrusel" src="./img/5.jpg" alt="DESCUENTOS" uk-cover>
+        </li>
+        <li>
+            <img class="carrusel"  src="./img/2.jpg" alt="TENIS" uk-cover>
+        </li>
+        <li>
+            <img class="carrusel" src="./img/1.jpg" alt="DEPA" uk-cover>
+        </li>
+    </ul>
+	
+    <div class="uk-position-bottom-center uk-position-small">
+        <ul class="uk-dotnav">
+            <li uk-slideshow-item="0"><a href="#">DESCUENTOS</a></li>
+            <li uk-slideshow-item="1"><a href="#">DEPARTAMENTOS</a></li>
+            <li uk-slideshow-item="2"><a href="#">DEPA</a></li>
+        </ul>
+    </div>
+
+</div></center><hr>
+<br><br>
+<p><u><a href="" target="_parent">Los más vendidos</a></u></p>
+<!-- TARJETAS -->
+<div class=" uk-child-width-1-3@m" uk-grid="masonry: true">
+    <div>
+        <div  uk-toggle="target: #my-id" class="uk-card uk-card-default">
+            <div class="uk-card-media-top">
+                <center><img class="tarjeta" src="./img/No1.jpg" alt=""></center>
+            </div>
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">Sudadera marginal</h3>
+                <p>Costo: $450.00</p>
+            </div>
+        </div>
+		   <div class="uk-offcanvas-content" >
+			
+			<!-- This is the off-canvas -->
+			<a href="#my-id" uk-toggle></a>
+			<div id="my-id" uk-offcanvas>
+				<div class="uk-offcanvas-bar">
+
+					<u><button class="uk-offcanvas-close" type="button" uk-close></button></u> <!-- Aquí va la descripción -->
+                    <h2>SUDADERA MARGINAL #1</h2>
+					<img src="./img/No1.jpg" alt="imagen 1">
+					<p>Bonita sudadera marginal para que lleves tu miseria a todas partes</p>
+				</div>
+			</div>
+
+		  </div>
+		</div>
+    <div>
+        <div>
+		<div  uk-toggle="target: #my-id" class="uk-card uk-card-default">
+            <div class="uk-card-media-top">
+                <center><img class="tarjeta" src="./img/No1.jpg" alt=""></center>
+            </div>
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">Sudadera marginal</h3>
+                <p>Costo: $450.00</p>
+            </div>
+        </div>
+		   <div class="uk-offcanvas-content" >
+			
+			<!-- This is the off-canvas -->
+			<a href="#my-id" uk-toggle></a>
+			<div id="my-id" uk-offcanvas>
+				<div class="uk-offcanvas-bar">
+
+					<u><button class="uk-offcanvas-close" type="button" uk-close></button></u> <!-- Aquí va la descripción -->
+                    <h2>SUDADERA MARGINAL #1</h2>
+					<img src="./img/No1.jpg" alt="imagen 1">
+					<p>Bonita sudadera marginal para que lleves tu miseria a todas partes</p>
+				</div>
+			</div>
+
+		  </div>
+		
+		</div>
+    </div>
+	<div>
+        <div>
+		<div  uk-toggle="target: #my-id" class="uk-card uk-card-default">
+            <div class="uk-card-media-top">
+                <center><img class="tarjeta" src="./img/No1.jpg" alt=""></center>
+            </div>
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">Sudadera marginal</h3>
+                <p>Costo: $450.00</p>
+            </div>
+        </div>
+		   <div class="uk-offcanvas-content" >
+			
+			<!-- This is the off-canvas -->
+			<a href="#my-id" uk-toggle></a>
+			<div id="my-id" uk-offcanvas>
+				<div class="uk-offcanvas-bar">
+
+					<u><button class="uk-offcanvas-close" type="button" uk-close></button></u> <!-- Aquí va la descripción -->
+                    <h2>SUDADERA MARGINAL #1</h2>
+					<img src="./img/No1.jpg" alt="imagen 1">
+					<p>Bonita sudadera marginal para que lleves tu miseria a todas partes</p>
+				</div>
+			</div>
+
+		  </div>
+		</div>
+    </div>
+   </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit-icons.min.js"></script>
+</body>
+</html>

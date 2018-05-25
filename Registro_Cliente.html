@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+ <meta charset="UTF-8">
+ <link id="Ulkit" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/css/uikit.min.css" />
+ <link id="CSS" rel="stylesheet" href="./Estilos.css">
+
+<title>Iniciar Sesión/Crear Cuenta</title>
+</head>
+
+<body>
+ <div id="logo"> <!-- BANNER checar off-canvas-->
+   <center>
+    <a href="index.html"><img id="bann" src="./img/logo.png" alt="DROP DEAD"></a>
+   </center>
+ </div>
+
+ <br>
+
+ <div id="app" class="uk-container"><!-- FORMULARIO -->
+
+
+
+	 <div uk-switcher="animation: uk-animation-fade">
+        <button class="uk-button uk-button-default" type="button">Iniciar Sesión</button>
+        <button class="uk-button uk-button-default" type="button">Crear Cuenta</button>
+    </div>
+
+    <ul class="uk-switcher uk-margin-small">
+        <li>
+
+    			<div class="uk-margin-auto ">
+    				<form v-on:submit="login">
+						<input  v-model="user.email" class="uk-input" type="text" placeholder="E-mail" name="email">
+    				<br><br>
+    				<input  v-model="user.password" class="uk-input" type="password" placeholder="Contraseña">
+    				<br><br>
+						<button class="uk-button uk-button-default" type="submit" >Inicio</button>
+    				<br>
+    				<p><a href="Error.html">¿Has olvidado tu contraseña?</a></p>
+    				</form>
+    			</div>
+
+
+    	</li>
+        <li>
+
+
+    			<div class="uk-margin-auto">
+
+    					<form v-on:submit="signUp">
+							<input  v-model="newUser.email" class="uk-input" type="text" placeholder="E-mail *">
+    					<br><br>
+    					<input v-model="newUser.password" class="uk-input" type="password" placeholder="Contraseña *">
+    					<br><br>
+    					<input v-model="newUser.nombre" class="uk-input" type="text" placeholder="Nombre">
+    					<br><br>
+    					<input v-model="newUser.apellido" class="uk-input" type="text" placeholder="Apellido *">
+    					<br><br>
+							<button class="uk-button uk-button-default" type="submit" >Registro</button>
+    					<br>
+    					</form>
+    			</div>
+
+
+    	</li>
+    </ul>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit-icons.min.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDzgZapMUPFkg6dlte4W3au-E0zHR7Vp50",
+        authDomain: "test-4341e.firebaseapp.com",
+        databaseURL: "https://test-4341e.firebaseio.com",
+        projectId: "test-4341e",
+        storageBucket: "test-4341e.appspot.com",
+        messagingSenderId: "301332539094"
+    };
+    firebase.initializeApp(config);
+</script>
+
+    <script>
+
+
+        const app = new Vue({
+            el: '#app',
+            data:{
+                errors:[],
+                messages:[],
+                user:{},
+                    newUser:{
+                      email:'',
+                      nombre:'',
+                      apellido:'',
+                      password:'',
+
+                },
+            },
+            methods: {
+            checkIfUser:function(){
+                    firebase.auth().onAuthStateChanged(user=>{
+                      if(user){
+                        console.log(user)
+                      }else{
+                        console.log('nel')
+                      }
+            })
+      },
+      saveUser:function(user){
+                console.log("el usuario: ",user)
+		  		console.log("Mensaje",this.messages)
+        firebase.database().ref(`/users/${user.uid}`).set(user)
+          .then(r=>{console.log(r)})
+          .catch(e=>{console.log(e)})
+      },
+
+                signUp(e){
+                    e.preventDefault()
+
+                     firebase.auth().createUserWithEmailAndPassword(this.newUser.email, this.newUser.password)
+                    .then(r=>{
+                        console.log("r",r)
+
+                      let user = {
+                       	  uid:r.user.uid,
+						  email:r.user.email,
+                          nombre:this.newUser.nombre,
+						  apellido:this.newUser.apellido,
+
+                      }
+                      this.saveUser(user)
+                        UIkit.notification(`Se ha registrado a  ${r.user.email} con éxito`, 'success')
+                    })
+                    .catch((error)=> {
+                        UIkit.notification(` ${error.message}`,'danger')
+                    });
+                },
+                login(e){
+                e.preventDefault()
+					console.log("pokeom",this.user),
+                        firebase.auth().signInWithEmailAndPassword(this.user.email, this.user.password)
+                            .then(r=>{
+                                console.log(r)
+                                let displayText =''
+                                r.displayName?displayText=r.displayName:displayText=r.email;
+                                UIkit.notification('Bienvenido', 'success')
+                            })
+                            .catch((error)=> {
+                                UIkit.notification(` ${error.message}`,'danger')
+                            });
+				}
+            }
+        })
+    </script>
+</body>
+</html>

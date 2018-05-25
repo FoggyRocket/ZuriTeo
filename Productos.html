@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <link id="Ulkit" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/css/uikit.min.css" />
+   <title>DROP DEAD</title>
+  </head>
+  <body>
+  
+  <div id="app">
+      <h2>{{title}}</h2>
+	  <ul>
+	      <li v-for="item in items">
+		      <span>{{item.text}}</span>
+	      </li>
+      </ul>
+  </div>
+  
+  <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAOBCAtRZREegQSdG1j79qJozj8-ChaBok",
+    authDomain: "dropdead-286c3.firebaseapp.com",
+    databaseURL: "https://dropdead-286c3.firebaseio.com",
+    projectId: "dropdead-286c3",
+    storageBucket: "dropdead-286c3.appspot.com",
+    messagingSenderId: "101167519201"
+  };
+  firebase.initializeApp(config);
+</script>
+  
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+      const app=new Vue({
+	       el: '#app',
+	       data:{
+		       title:"Pizzas",
+			   items:[
+			       {text:"p"},
+				   {text:"a"},
+				   {text:"s"}
+			   
+			   
+			   ]
+	    }
+	  })
+  </script>
+  
+  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit-icons.min.js"></script>
+  </body>
+  </html>
