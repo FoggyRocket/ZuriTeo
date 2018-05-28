@@ -137,7 +137,7 @@
                       }
                       this.saveUser(user)
 							UIkit.notification(`Se ha registrado a  ${r.user.email} con éxito`, 'success')
-						location.href='index.html'
+                        window.location.href = "index.html";
                     })
                     .catch((error)=> {
                         UIkit.notification(` ${error.message}`,'danger')
@@ -145,14 +145,14 @@
                 },
                 login(e){
                 e.preventDefault()
-					console.log("pokeom",this.uselocation.href='index.html'r),
+
                         firebase.auth().signInWithEmailAndPassword(this.user.email, this.user.password)
                             .then(r=>{
                                 console.log(r)
                                 let displayText =''
                                 r.displayName?displayText=r.displayName:displayText=r.email;
                                 UIkit.notification('Bienvenido', 'success')
-                                location.href='index.html'
+                                window.location.href = "index.html";
                             })
                             .catch((error)=> {
                                 UIkit.notification(` ${error.message}`,'danger')
