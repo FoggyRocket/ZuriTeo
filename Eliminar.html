@@ -1,19 +1,33 @@
 <!DOCTYPE>
 <html>
 <head>
+ <meta charset="UTF-8">
  <link id="Ulkit" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/css/uikit.min.css" />
  <link id="CSS" rel="stylesheet" href="./Estilos.css">
-<title>PRODUCTOS</title>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDzgZapMUPFkg6dlte4W3au-E0zHR7Vp50",
+            authDomain: "test-4341e.firebaseapp.com",
+            databaseURL: "https://test-4341e.firebaseio.com",
+            projectId: "test-4341e",
+            storageBucket: "test-4341e.appspot.com",
+            messagingSenderId: "301332539094"
+        };
+        firebase.initializeApp(config);
+    </script>
+<title>DAR DE BAJA PRODUCTO</title>
 </head>
 
 <body>
-
 <div id="ag">
   <center>
-<p><a href="index.html"><img class="banner" src="./img/logo.png" alt="DROP DEAD"></a></p>
+<p><a href="Administrador.html"><img class="banner" src="./img/logo.png" alt="DROP DEAD"></a></p>
 </center>
 </div>
-
+<h2><center>ELIMINAR PRODUCTO</center></h2>
+<br>
 <div id="app"  uk-filter="target: .js-filter">
 
     <ul class="uk-subnav uk-subnav-pill">
@@ -35,6 +49,7 @@
                         <h3 class="uk-card-title">{{HOODIE.product.name}}</h3>
                         <p>Costo: ${{HOODIE.product.price}}</p>
                         <p>{{HOODIE.product.description}}</p>
+                        <button v-on:click="deleteHoodie(i)" class="uk-button uk-button-primary">Eliminar</button>
                     </div>
                 </div>
 
@@ -52,6 +67,7 @@
                         <h3 class="uk-card-title">{{JEAN.product.name}}</h3>
                         <p>Costo: ${{JEAN.product.price}}</p>
                         <p>{{JEAN.product.description}}</p>
+                        <button v-on:click="deleteJEAN(i)" class="uk-button uk-button-primary">Eliminar</button>
                     </div>
                 </div>
 
@@ -59,7 +75,7 @@
             </div>
         </li>
 
-            <li v-for="(BP, i) in BPS" class="tag-black">
+        <li v-for="(BP, i) in BPS" class="tag-black">
             <div>
                 <div   class="uk-card uk-card-default">
                     <div class="uk-card-media-top">
@@ -69,6 +85,7 @@
                         <h3 class="uk-card-title">{{BP.product.name}}</h3>
                         <p>Costo: ${{BP.product.price}}</p>
                         <p>{{BP.product.description}}</p>
+                        <button v-on:click="deleteBp(i)" class="uk-button uk-button-primary">Eliminar</button>
                     </div>
                 </div>
 
@@ -80,29 +97,17 @@
 
 </div>
 
-<br><br><br>
+
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit-icons.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit-icons.min.js"></script>
 <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyDzgZapMUPFkg6dlte4W3au-E0zHR7Vp50",
-        authDomain: "test-4341e.firebaseapp.com",
-        databaseURL: "https://test-4341e.firebaseio.com",
-        projectId: "test-4341e",
-        storageBucket: "test-4341e.appspot.com",
-        messagingSenderId: "301332539094"
-    };
-    firebase.initializeApp(config);
-</script>
-<script>
+
     const app = new Vue({
         el: '#app',
         data:{
-            JEANS:[],
             HOODIES:[],
+            JEANS:[],
             BPS:[]
         },
         created(){
@@ -111,7 +116,6 @@
                 .then(snap=>{
                     this.HOODIES = snap.val();
                     console.log("aqui va",this.HOODIES)
-
                 })
             firebase.database().ref("products/JEANS/")
                 .once("value")
@@ -127,10 +131,30 @@
                 })
 
         },
-        methods:{
+        methods: {
+
+
+            deleteJEAN(i){
+                console.log("idez",i)
+                firebase.database().ref("products/JEANS/"+i).set(null);
+                location.reload();
+            },
+            deleteHoodie(i){
+                console.log("idez",i)
+                firebase.database().ref("products/HOODIES/"+i).set(null);
+                location.reload();
+            },
+            deleteBp(i){
+                console.log("idez",i)
+                firebase.database().ref("products/BPS/"+i).set(null);
+                location.reload();
+            },
+
 
         }
     })
 </script>
 </body>
 </html>
+
+

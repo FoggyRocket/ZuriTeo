@@ -15,3 +15,34 @@
  </div>
 </body>
 </html>
+
+
+        <li  v-for="(JEAN, i) in JEANS" class="tag-blue">
+           <div>
+                <div  uk-toggle="target: #my-id" class="uk-card uk-card-default">
+                    <div class="uk-card-media-top">
+                        <center><img class="tarjeta" :src="JEAN.product.media" alt=""></center>
+                    </div>
+                    <div class="uk-card-body">
+                        <h3 class="uk-card-title">{{JEAN.product.name}}</h3>
+                        <p>Costo: ${{JEAN.product.price}}</p>
+                    </div>
+                </div>
+                   <div class="uk-offcanvas-content" >
+
+                    <!-- This is the off-canvas -->
+                    <a href="#my-id" uk-toggle></a>
+
+                    <div id="my-id" uk-offcanvas>
+                        <div class="uk-offcanvas-bar">
+
+                            <u><button class="uk-offcanvas-close" type="button" uk-close></button></u> <!-- Aquí va la descripción -->
+                            <h2>{{HOODIE.product.name}}</h2>
+                            <img :src="JEAN.product.media"  alt="imagen 1">
+                            <p>{{HOODIE.product.description}}</p>
+                        </div>Bonita sudadera marginal para que lleves tu miseria a todas partes
+                    </div>
+
+		  </div>
+		</div>
+        </li>

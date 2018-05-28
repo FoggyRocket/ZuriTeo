@@ -1,8 +1,23 @@
 <!DOCTYPE>
 <html>
 <head>
+ <meta charset="UTF-8">
  <link id="Ulkit" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/css/uikit.min.css" />
  <link id="CSS" rel="stylesheet" href="./Estilos.css">
+ <script src="js/imagenes.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDzgZapMUPFkg6dlte4W3au-E0zHR7Vp50",
+            authDomain: "test-4341e.firebaseapp.com",
+            databaseURL: "https://test-4341e.firebaseio.com",
+            projectId: "test-4341e",
+            storageBucket: "test-4341e.appspot.com",
+            messagingSenderId: "301332539094"
+        };
+        firebase.initializeApp(config);
+    </script>
 <title>PRODUCTO NUEVO</title>
 </head>
 
@@ -10,16 +25,147 @@
 
 <div id="ag">
   <center>
-<p><img class="banner" src="./img/logo.png" alt="DROP DEAD"></p>
+<p><a href="Administrador.html"><img class="banner" src="./img/logo.png" alt="DROP DEAD"></a></p>
 </center>
 </div>
 
-<div>
-  
+<h2><center>AGREGAR PRODUCTO</center></h2>
+
+<div id="app" style="display: flex">
+    <div> <!-- Subir imagen -->
+        <div class="uk-align-left uk-margin-remove-adjacent">
+            <div class="js-upload uk-placeholder uk-text-center">
+                <div uk-form-custom>
+                    <input @change="upFile" type="file" name="fichero" value="" id="fichero">
+                    <span class="uk-link">selecciona una imagen</span>
+                </div>
+                <div class="image-preview" v-if="imagePre.length > 0">
+                    <img class="preview" :src="imagePre">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <form  v-on:submit="upClothe"> <!-- formulario -->
+        <div class="uk-margin">
+
+            <label class="uk-form-label" for="form-stacked-text">NUMERO DE SERIE</label>
+            <div class="uk-form-controls">
+                <input v-model="upClothes.numS" name="clave" class="uk-input uk-form-width-large" type="text" placeholder="clave del producto">
+            </div>
+        </div>
+
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">SELECCIONE EL TIPO DE PRENDA</label>
+            <div class="uk-margin">
+                <select  v-model="upClothes.type" class="uk-select uk-form-width-large">
+                    <option>HOODIES</option>
+                    <option>JEANS</option>
+                    <option>BLUSAS-PLAYERAS</option>
+                </select>
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">NOMBRE</label>
+            <div class="uk-form-controls">
+                <input  v-model="upClothes.name" name="name" class="uk-input uk-form-width-large" type="text" placeholder="Nombre del producto o titulo ">
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">COSTO</label>
+            <div class="uk-form-controls">
+                <input  v-model="upClothes.cost" name="costo" class="uk-input uk-form-width-large" type="text" placeholder="$ ">
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">PRECIO</label>
+            <div class="uk-form-controls">
+                <input  v-model="upClothes.price" name="price" class="uk-input uk-form-width-large" type="text" placeholder="$ ">
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <label class="uk-form-label" for="form-stacked-text">DESCRIPCIÓN</label>
+            <div class="uk-form-controls"><input name="desc" v-model="upClothes.description" class="uk-input uk-form-width-large" type="text" placeholder="EL PRODUCTO ES...">
+            </div>
+        </div>
+
+        <div>
+            <center>
+                <button class="uk-button uk-button-primary" type="submit">AGREGAR PRODUCTO</button>
+            </center>
+        </div>
+
+    </form>
 </div>
 
+<br>
 
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit-icons.min.js"></script>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data:{
+
+            upClothes:{},
+            image:{},
+            uploadTask: '',
+            downloadURL: '',
+            imagePre:{},
+
+
+        },
+        methods: {
+
+
+            upClothe(e){
+                e.preventDefault()
+                 var storageRef = firebase.storage().ref();
+                var product=this.upClothes
+                var file = this.image;
+                var starsRef = storageRef.child(product.type+ '/' + file.name).put(file);
+
+                this.uploadTask = starsRef;
+                this.uploadTask.then(snapshot => {
+                    this.downloadURL = snapshot.downloadURL;
+                    product["media"]=this.downloadURL;
+                    firebase.database().ref(`products/${product.type}/`).push({product})
+                    UIkit.notification('Se ha registrado a  nuevo producto', 'success')
+                    e.target.clave.value=""
+                    e.target.name.value=""
+                    e.target.costo.value=""
+                    e.target.price.value=""
+                    e.target.desc.value=""
+                    this.image=""
+                    this.imagePre=""
+                })
+
+            },
+            upFile(e) {
+                e.preventDefault()
+                console.log("Imagen", e)
+                var input = e.target;
+                this.image = e.target.files[0]
+                this.imagePre = e.target.files[0]
+                var reader = new FileReader();
+
+                reader.onload = (e) => {
+
+                    this.imagePre = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+
+        }
+    })
+</script>
+
 </body>
 </html>
