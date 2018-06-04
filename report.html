@@ -1,0 +1,162 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link id="Ulkit" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/css/uikit.min.css" />
+    <link id="CSS" rel="stylesheet" href="./Estilos.css">
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDzgZapMUPFkg6dlte4W3au-E0zHR7Vp50",
+            authDomain: "test-4341e.firebaseapp.com",
+            databaseURL: "https://test-4341e.firebaseio.com",
+            projectId: "test-4341e",
+            storageBucket: "test-4341e.appspot.com",
+            messagingSenderId: "301332539094"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <title>Genera reportes</title>
+</head>
+
+<body>
+
+<div id="ag">
+    <center>
+        <p><a href="Administrador.html"><img class="banner" src="./img/logo.png" alt="DROP DEAD"></a></p>
+    </center>
+</div>
+
+<h2><center>Busca</center></h2>
+
+<div id="app" style="display: flex; justify-content: center; flex-direction: column; padding: 40px;">
+
+    <form   v-on:submit="searchItem" style="    display: flex;
+    justify-content: center;
+    align-items: center;">
+        <div class="uk-margin">
+            <label class="uk-form-label" >SELECCIONE LA CATEGORIA</label>
+            <div class="uk-margin">
+                <select v-model="item"  class="uk-select uk-form-width-large">
+                    <option>HOODIES</option>
+                    <option>JEANS</option>
+                    <option>BLUSAS-PLAYERAS</option>
+                </select>
+            </div>
+        </div>
+        <div>
+
+                <button class="uk-button uk-button-primary" type="submit" >Buscar</button>
+
+        </div>
+
+    </form>
+
+    <div id="customers">
+        <h2><center>En existencia</center></h2>
+        <table  class="uk-table uk-table-small uk-table-divider">
+            <thead>
+            <tr>
+                <th>Num Serie</th>
+                <th>Nombre</th>
+                <th>Costo</th>
+                <th>Precio</th>
+            </tr>
+            </thead>
+            <tbody v-for="(HOODIE, i) in items" >
+            <tr>
+                <td>{{HOODIE.product.numS}}</td>
+                <td>{{HOODIE.product.name}}</td>
+                <td>${{HOODIE.product.cost}}</td>
+                <td>${{HOODIE.product.price}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <center>
+            <button id="exportButton" class="uk-button uk-button-primary" onclick="javascript:demoFromHTML()" >Generar Reporte</button>
+        </center>
+    </div>
+</div>
+
+<br>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.1/js/uikit-icons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.0/jspdf.debug.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data:{
+
+            item:null,
+            items:[],
+        },
+
+        methods: {
+            searchItem(e) {
+                e.preventDefault()
+                firebase.database().ref(`products/${this.item}/`)
+                    .once("value")
+                    .then(snap => {
+                        this.items = snap.val();
+                    })
+            }
+        }
+    })
+</script>
+<script type="text/javascript">
+    function demoFromHTML() {
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        // source can be HTML-formatted string, or a reference
+        // to an actual DOM element from which the text will be scraped.
+        source = $('#customers')[0];
+
+        // we support special element handlers. Register them with jQuery-style
+        // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
+        // There is no support for any other type of selectors
+        // (class, of compound) at this time.
+        specialElementHandlers = {
+            // element with id of "bypass" - jQuery style selector
+            '#bypassme': function(element, renderer) {
+                // true = "handled elsewhere, bypass text extraction"
+                return true
+            }
+        };
+        margins = {
+            top: 80,
+            bottom: 60,
+            left: 40,
+            width: 522
+        };
+        // all coords and widths are in jsPDF instance's declared units
+        // 'inches' in this case
+        pdf.fromHTML(
+            source, // HTML string or DOM elem ref.
+            margins.left, // x coord
+            margins.top, {// y coord
+                'width': margins.width, // max width of content on PDF
+                'elementHandlers': specialElementHandlers
+            },
+            function(dispose) {
+                // dispose: object with X, Y of the last line add to the PDF
+                //          this allow the insertion of new lines after html
+                pdf.save('Reporte.pdf');
+            }
+            , margins);
+    }
+</script>
+
+</body>
+</html>
